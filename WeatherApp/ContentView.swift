@@ -8,19 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var vm: WeatherVM
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        /*
+        NavigationStack {
+            List(vm.weatherEntries) {entry in
+                WeatherEntry(data: entry)
+            }.navigationTitle("Deine Orte")
         }
-        .padding()
+         */
+        
+        VStack {
+            Text(vm.description).padding()
+            Button("Wetterdaten abrufen", action: {
+                vm.fetchWeather()
+            })
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(vm: WeatherVM())
     }
 }
