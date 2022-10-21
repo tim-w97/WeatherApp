@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var vm: WeatherVM
+    @ObservedObject
+    var vm: WeatherVM
     
     var body: some View {
-        /*
         NavigationStack {
-            List(vm.weatherEntries) {entry in
-                WeatherEntry(data: entry)
-            }.navigationTitle("Deine Orte")
-        }
-         */
-        
-        VStack {
-            Text(vm.description).padding()
-            Button("Wetterdaten abrufen", action: {
-                vm.fetchWeather()
-            })
+            List {
+                ForEach(vm.weatherEntries) { entry in
+                    WeatherEntry(data: entry)
+                }
+                .onMove { indices, newIndex in
+                    vm.moveEntries(indices, to: newIndex)
+                }
+                .onDelete { indices in
+                    vm.removeEntries(indices: indices)
+                }
+            }
+            .navigationTitle("Deine Orte")
+            .toolbar {
+                TextField("Breitengrad", text: $vm.lat)
+                TextField("Längengrad", text: $vm.lon)
+                Button("Hinzufügen") {
+                    vm.addCity()
+                }
+            }
         }
     }
 }

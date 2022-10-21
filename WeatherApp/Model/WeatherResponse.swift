@@ -13,7 +13,6 @@ struct WeatherResponse: Codable {
     let main: Main
     let visibility: Int
     let wind: Wind
-    let rain: Rain
     let clouds: Clouds
     let dt: Int
     let sys: Sys
@@ -29,13 +28,13 @@ struct Clouds: Codable {
 
 // MARK: - Coord
 struct Coord: Codable {
-    let lon, lat: Double
+    let lon, lat: Int
 }
 
 // MARK: - Main
 struct Main: Codable {
     let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, humidity: Int
+    let pressure, humidity, seaLevel, grndLevel: Int
 
     enum CodingKeys: String, CodingKey {
         case temp
@@ -43,21 +42,13 @@ struct Main: Codable {
         case tempMin = "temp_min"
         case tempMax = "temp_max"
         case pressure, humidity
-    }
-}
-
-// MARK: - Rain
-struct Rain: Codable {
-    let the1H: Double
-
-    enum CodingKeys: String, CodingKey {
-        case the1H = "1h"
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
     }
 }
 
 // MARK: - Sys
 struct Sys: Codable {
-    let type, id: Int
     let country: String
     let sunrise, sunset: Int
 }
@@ -78,4 +69,5 @@ struct Weather: Codable {
 struct Wind: Codable {
     let speed: Double
     let deg: Int
+    let gust: Double
 }

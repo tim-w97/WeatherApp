@@ -8,17 +8,35 @@
 import Foundation
 
 class ModelInterface {
-    func addEntry(entry: WeatherData) {
-        Database.sharedInstance.weatherEntries.removeAll(where: { existingEntry in
-            existingEntry.city == entry.city
-        })
+    var index: Int = 0
+    
+    func getFirstEntry() -> WeatherData? {
+        index = 0
         
+        if Database.sharedInstance.weatherEntries.count == 0 {
+            return nil
+        }
+        
+        return Database.sharedInstance.weatherEntries[index]
+    }
+    
+    func getNextEntry() -> WeatherData? {
+        index += 1
+        
+        if index >= Database.sharedInstance.weatherEntries.count {
+            return nil
+        }
+        
+        return Database.sharedInstance.weatherEntries[index]
+    }
+    
+    func addEntry(entry: WeatherData) {
         Database.sharedInstance.weatherEntries.append(entry)
     }
     
-    func removeEntry(city: String) {
+    func removeEntry(id: Int) {
         Database.sharedInstance.weatherEntries.removeAll(where: { entry in
-            entry.city == city
+            entry.id == id
         })
     }
 }
