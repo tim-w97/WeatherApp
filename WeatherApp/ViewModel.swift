@@ -11,9 +11,6 @@ class WeatherVM : ObservableObject {
     @Published
     var weatherEntries: [WeatherData]
     
-    var lat: String = ""
-    var lon: String = ""
-    
     let modelInterface = ModelInterface()
     
     init() {
@@ -21,24 +18,37 @@ class WeatherVM : ObservableObject {
         loadWeatherEntries()
     }
     
+    func refreshEntries() {
+        for entry in weatherEntries {
+            guard let serverResponse = fetchWeather(lat: entry.lat, lon: entry.lon) else {
+                return
+            }
+            
+            let newWeatherData = WeatherData(
+                serverResponse: serverResponse
+            )
+            
+            modelInterface.updateEntry(withObjectId: entry.objectId, newEntry: newWeatherData)
+        }
+        
+        loadWeatherEntries()
+    }
+    
+    /*
     func addCity() {
-        guard let weatherResponse = fetchWeather() else {
+        guard let serverResponse = fetchWeather(lat: lat, lon: lon) else {
             return
         }
         
         let newWeatherData = WeatherData(
-            id: weatherResponse.id,
-            city: weatherResponse.name,
-            temp: Int(weatherResponse.main.temp)
+            serverResponse: serverResponse
         )
         
         modelInterface.addEntry(entry: newWeatherData)
         
         loadWeatherEntries()
-        
-        lat = ""
-        lon = ""
     }
+     */
     
     func moveEntries(_ indices: IndexSet, to: Int) {
         weatherEntries.move(fromOffsets: indices, toOffset: to)
@@ -68,21 +78,11 @@ class WeatherVM : ObservableObject {
         }
     }
     
-    func fetchWeather() -> WeatherResponse? {
-        var urlComponents = URLComponents()
-        
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.openweathermap.org"
-        urlComponents.path = "/data/2.5/weather"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "lang", value: "de"),
-            URLQueryItem(name: "units", value: "metric"),
-            URLQueryItem(name: "lat", value: lat),
-            URLQueryItem(name: "lon", value: lon),
-            URLQueryItem(name: "appid", value: Constants.apiKey),
-        ]
-        
-        let response = NetworkClerk().getJsonFrom(urlComponents: urlComponents)
+    private func fetchWeather(lat: Double, lon: Double) -> ServerResponse? {
+        let response = NetworkClerk().getWeatherJsonFor(
+            lat: String(lat),
+            lon: String(lon)
+        )
         
         print(response.0)
         

@@ -14,17 +14,13 @@ struct WeatherEntry: View {
         HStack {
             Text(data.city)
             Spacer()
-            Text("\(data.temp)  °C")
+            Text(String(format: "%.2f", data.temp) + " °C")
         }
     }
 }
 
 struct WeatherEntry_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherEntry(data: WeatherData(
-            id: 0,
-            city: "Hof",
-            temp: 10
-        ))
+        WeatherEntry(data: WeatherData())
     }
 }

@@ -25,12 +25,8 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Deine Orte")
-            .toolbar {
-                TextField("Breitengrad", text: $vm.lat)
-                TextField("Längengrad", text: $vm.lon)
-                Button("Hinzufügen") {
-                    vm.addCity()
-                }
+            .refreshable {
+                vm.refreshEntries()
             }
         }
     }

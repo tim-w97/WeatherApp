@@ -1,12 +1,12 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let weatherResponse = try? newJSONDecoder().decode(WeatherResponse.self, from: jsonData)
+//   let serverResponse = try? newJSONDecoder().decode(ServerResponse.self, from: jsonData)
 
 import Foundation
 
-// MARK: - WeatherResponse
-struct WeatherResponse: Codable {
+// MARK: - ServerResponse
+struct ServerResponse: Codable {
     let coord: Coord
     let weather: [Weather]
     let base: String
@@ -28,13 +28,13 @@ struct Clouds: Codable {
 
 // MARK: - Coord
 struct Coord: Codable {
-    let lon, lat: Int
+    let lon, lat: Double
 }
 
 // MARK: - Main
 struct Main: Codable {
     let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, humidity, seaLevel, grndLevel: Int
+    let pressure, humidity: Int
 
     enum CodingKeys: String, CodingKey {
         case temp
@@ -42,13 +42,12 @@ struct Main: Codable {
         case tempMin = "temp_min"
         case tempMax = "temp_max"
         case pressure, humidity
-        case seaLevel = "sea_level"
-        case grndLevel = "grnd_level"
     }
 }
 
 // MARK: - Sys
 struct Sys: Codable {
+    let type, id: Int
     let country: String
     let sunrise, sunset: Int
 }

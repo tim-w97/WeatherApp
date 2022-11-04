@@ -10,6 +10,16 @@ import Foundation
 class ModelInterface {
     var index: Int = 0
     
+    func updateEntry(withObjectId: UUID, newEntry: WeatherData) {
+        guard let indexToUpdate = Database.sharedInstance.weatherEntries.firstIndex(where: { entry in
+            entry.objectId == withObjectId
+        }) else {
+            return
+        }
+        
+        Database.sharedInstance.weatherEntries[indexToUpdate] = newEntry
+    }
+    
     func getFirstEntry() -> WeatherData? {
         index = 0
         
@@ -39,16 +49,4 @@ class ModelInterface {
             entry.id == id
         })
     }
-}
-
-class Database {
-    static let sharedInstance = Database()
-    
-    var weatherEntries : [WeatherData] = [
-        WeatherData(id: 0, city: "Erfurt", temp: 12),
-        WeatherData(id: 1, city: "Hof", temp: 14),
-        WeatherData(id: 2, city: "Buxtehude", temp: 19),
-        WeatherData(id: 3, city: "Köthen", temp: 4),
-        WeatherData(id: 4, city: "Aschersleben", temp: 10)
-    ]
 }
