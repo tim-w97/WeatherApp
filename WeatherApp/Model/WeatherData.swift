@@ -39,7 +39,6 @@ struct WeatherData : Identifiable {
     
     init(id: Int, city: String, temp: Double, lat: Double, lon: Double) {
         objectId = UUID()
-        
         self.id = id
         self.city = city
         self.temp = temp
