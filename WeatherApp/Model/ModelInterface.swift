@@ -10,9 +10,13 @@ import Foundation
 class ModelInterface {
     var index: Int = 0
     
-    func updateEntry(withObjectId: UUID, newEntry: WeatherData) {
+    func moveEntries(fromOffsets: IndexSet, toOffset: Int) {
+        Database.sharedInstance.weatherEntries.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+    
+    func updateEntry(withId: UUID, newEntry: WeatherData) {
         guard let indexToUpdate = Database.sharedInstance.weatherEntries.firstIndex(where: { entry in
-            entry.objectId == withObjectId
+            entry.id == withId
         }) else {
             return
         }
@@ -44,7 +48,7 @@ class ModelInterface {
         Database.sharedInstance.weatherEntries.append(entry)
     }
     
-    func removeEntry(id: Int) {
+    func removeEntry(id: UUID) {
         Database.sharedInstance.weatherEntries.removeAll(where: { entry in
             entry.id == id
         })

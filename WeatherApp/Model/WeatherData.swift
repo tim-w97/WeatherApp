@@ -8,8 +8,8 @@
 import Foundation
 
 struct WeatherData : Identifiable {
-    let objectId: UUID
-    let id: Int
+    let id: UUID
+    let weatherId: Int
     let city: String
     let temp: Double
     
@@ -17,8 +17,8 @@ struct WeatherData : Identifiable {
     let lon: Double
     
     init(serverResponse: ServerResponse) {
-        objectId = UUID()
-        id = serverResponse.id
+        id = UUID()
+        weatherId = serverResponse.id
         city = serverResponse.name
         temp = serverResponse.main.temp
         
@@ -28,8 +28,8 @@ struct WeatherData : Identifiable {
     
     // For Preview
     init() {
-        objectId = UUID()
-        id = 42
+        id = UUID()
+        weatherId = 42
         city = "Buxtehude"
         temp = 23.4
         
@@ -37,9 +37,9 @@ struct WeatherData : Identifiable {
         lon = 10
     }
     
-    init(id: Int, city: String, temp: Double, lat: Double, lon: Double) {
-        objectId = UUID()
-        self.id = id
+    init(weatherId: Int, city: String, temp: Double, lat: Double, lon: Double) {
+        self.id = UUID()
+        self.weatherId = weatherId
         self.city = city
         self.temp = temp
         self.lat = lat

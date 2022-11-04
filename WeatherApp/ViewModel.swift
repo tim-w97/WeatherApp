@@ -28,7 +28,7 @@ class WeatherVM : ObservableObject {
                 serverResponse: serverResponse
             )
             
-            modelInterface.updateEntry(withObjectId: entry.objectId, newEntry: newWeatherData)
+            modelInterface.updateEntry(withId: entry.id, newEntry: newWeatherData)
         }
         
         loadWeatherEntries()
@@ -51,7 +51,8 @@ class WeatherVM : ObservableObject {
      */
     
     func moveEntries(_ indices: IndexSet, to: Int) {
-        weatherEntries.move(fromOffsets: indices, toOffset: to)
+        modelInterface.moveEntries(fromOffsets: indices, toOffset: to)
+        loadWeatherEntries()
     }
     
     func removeEntries(indices: IndexSet) {
