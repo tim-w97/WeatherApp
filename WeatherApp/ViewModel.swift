@@ -14,8 +14,6 @@ class WeatherVM : ObservableObject {
     
     let modelInterface = ModelInterface()
     
-    let networkClerk = NetworkClerk()
-    
     var subscription: AnyCancellable?
     
     init() {
@@ -30,18 +28,8 @@ class WeatherVM : ObservableObject {
     
     func refreshEntries() {
         for entry in weatherEntries {
-            guard let serverResponse = fetchWeather(forId: entry.id, lat: entry.lat, lon: entry.lon) else {
-                return
-            }
-            
-            let newWeatherData = WeatherData(
-                serverResponse: serverResponse
-            )
-            
-            modelInterface.updateEntry(withId: entry.id, newEntry: newWeatherData)
+            fetchWeather(forId: entry.id, lat: entry.lat, lon: entry.lon)
         }
-        
-        loadWeatherEntries()
     }
     
     func moveEntries(_ indices: IndexSet, to: Int) {
@@ -73,7 +61,7 @@ class WeatherVM : ObservableObject {
         }
     }
     
-    func fetchWeather(forId: UUID, lat: Double, lon: Double) -> ServerResponse? {
-        networkClerk.fetchWeather(forId: forId, lat: lat, lon: lon)
+    func fetchWeather(forId: UUID, lat: Double, lon: Double) {
+        NetworkClerk().fetchWeather(forId: forId, lat: lat, lon: lon)
     }
 }

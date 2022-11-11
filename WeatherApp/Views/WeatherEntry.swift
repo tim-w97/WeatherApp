@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherEntry: View {
-    // TODO: create a dedicated view
+    // TODO: create a dedicated struct for the view
     let data : WeatherData
     
     var body: some View {

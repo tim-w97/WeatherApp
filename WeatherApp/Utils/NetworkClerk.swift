@@ -14,7 +14,7 @@ class NetworkClerk {
     
     let modelInterface = ModelInterface()
     
-    func fetchWeather(forId: UUID, lat: Double, lon: Double) -> ServerResponse? {
+    func fetchWeather(forId: UUID, lat: Double, lon: Double) {
         
         var urlComponents = URLComponents()
         
@@ -30,7 +30,7 @@ class NetworkClerk {
         ]
         
         guard let url = urlComponents.url else {
-            return nil
+            return
         }
         
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
@@ -44,7 +44,5 @@ class NetworkClerk {
                 let updatedWeather = WeatherData(serverResponse: response)
                 self.modelInterface.updateEntry(withId: forId, newEntry: updatedWeather)
             })
-        
-        return nil
     }
 }
