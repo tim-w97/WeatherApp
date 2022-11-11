@@ -14,7 +14,7 @@ class NetworkClerk {
     
     let modelInterface = ModelInterface()
     
-    func fetchWeather(lat: Double, lon: Double) -> ServerResponse? {
+    func fetchWeather(forId: UUID, lat: Double, lon: Double) -> ServerResponse? {
         
         var urlComponents = URLComponents()
         
@@ -41,7 +41,8 @@ class NetworkClerk {
             .sink(receiveCompletion: {
                 print("Received completion: \($0)")
             }, receiveValue: { response in
-                self.modelInterface.addEntry(entry: WeatherData(serverResponse: response))
+                let updatedWeather = WeatherData(serverResponse: response)
+                self.modelInterface.updateEntry(withId: forId, newEntry: updatedWeather)
             })
         
         return nil
