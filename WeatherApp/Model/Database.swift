@@ -7,8 +7,10 @@
 
 import Foundation
 
-class Database {
+class Database : ObservableObject {
     static let sharedInstance = Database()
+    
+    @Published var modelHasChanged = false
     
     var weatherEntries : [WeatherData] = [
         WeatherData(weatherId: 1, city: "Bla", temp: -999, lat: 50.717758, lon: 11.329310),

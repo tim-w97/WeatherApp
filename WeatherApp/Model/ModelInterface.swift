@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Combine
 
 class ModelInterface {
     var index: Int = 0
     
     func moveEntries(fromOffsets: IndexSet, toOffset: Int) {
         Database.sharedInstance.weatherEntries.move(fromOffsets: fromOffsets, toOffset: toOffset)
+        
+        readyToUse()
     }
     
     func updateEntry(withId: UUID, newEntry: WeatherData) {
@@ -22,6 +25,8 @@ class ModelInterface {
         }
         
         Database.sharedInstance.weatherEntries[indexToUpdate] = newEntry
+        
+        readyToUse()
     }
     
     func getFirstEntry() -> WeatherData? {
@@ -46,11 +51,21 @@ class ModelInterface {
     
     func addEntry(entry: WeatherData) {
         Database.sharedInstance.weatherEntries.append(entry)
+        
+        readyToUse()
     }
     
     func removeEntry(id: UUID) {
         Database.sharedInstance.weatherEntries.removeAll(where: { entry in
             entry.id == id
         })
+    }
+    
+    func modelNotifier() -> ObservableObjectPublisher {
+        return Database.sharedInstance.objectWillChange
+    }
+    
+    func readyToUse() {
+        Database.sharedInstance.modelHasChanged = true
     }
 }

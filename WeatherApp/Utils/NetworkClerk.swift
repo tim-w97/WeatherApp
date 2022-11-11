@@ -6,16 +6,16 @@
 //
 
 import Foundation
-
-enum NetworkError {
-    case url
-    case prepare
-    case decode
-    case okay
-}
+import Combine
 
 class NetworkClerk {
-    func getWeatherJsonFor(lat: String, lon: String) -> (NetworkError, ServerResponse?) {
+    
+    fileprivate var cancellable: AnyCancellable?
+    
+    let modelInterface = ModelInterface()
+    
+    func fetchWeather(lat: Double, lon: Double) -> ServerResponse? {
+        
         var urlComponents = URLComponents()
         
         urlComponents.scheme = "https"
@@ -24,23 +24,26 @@ class NetworkClerk {
         urlComponents.queryItems = [
             URLQueryItem(name: "lang", value: "de"),
             URLQueryItem(name: "units", value: "metric"),
-            URLQueryItem(name: "lat", value: lat),
-            URLQueryItem(name: "lon", value: lon),
+            URLQueryItem(name: "lat", value: String(lat)),
+            URLQueryItem(name: "lon", value: String(lon)),
             URLQueryItem(name: "appid", value: Constants.apiKey),
         ]
         
         guard let url = urlComponents.url else {
-            return (.url, nil)
+            return nil
         }
         
-        guard let rawData = try? Data(contentsOf: url) else {
-            return (.prepare, nil)
-        }
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: ServerResponse.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+            .sink(receiveCompletion: {
+                print("Received completion: \($0)")
+            }, receiveValue: { response in
+                self.modelInterface.addEntry(entry: WeatherData(serverResponse: response))
+            })
         
-        guard let weather = try? JSONDecoder().decode(ServerResponse.self, from: rawData) else {
-            return (.decode, nil)
-        }
-        
-        return (.okay, weather)
+        return nil
     }
 }

@@ -67,6 +67,7 @@
 		5709C13C290290430091B99D /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				57987A46291E7E8F00FAE2AC /* CustomTypes */,
 				5709C1572902A8C40091B99D /* Utils */,
 				5709C1542902A4E40091B99D /* Views */,
 				5709C1532902A4880091B99D /* Model */,
@@ -92,8 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				5709C14B290290BD0091B99D /* ModelInterface.swift */,
-				5709C1512902A46E0091B99D /* ServerResponse.swift */,
-				5709C1552902A50F0091B99D /* WeatherData.swift */,
 				57CD15D62915157F00E0074F /* Database.swift */,
 			);
 			path = Model;
@@ -113,6 +112,15 @@
 				5709C1582902A8D50091B99D /* NetworkClerk.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		57987A46291E7E8F00FAE2AC /* CustomTypes */ = {
+			isa = PBXGroup;
+			children = (
+				5709C1512902A46E0091B99D /* ServerResponse.swift */,
+				5709C1552902A50F0091B99D /* WeatherData.swift */,
+			);
+			path = CustomTypes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

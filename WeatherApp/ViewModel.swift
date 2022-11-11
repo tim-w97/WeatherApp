@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class WeatherVM : ObservableObject {
     @Published
@@ -13,9 +14,18 @@ class WeatherVM : ObservableObject {
     
     let modelInterface = ModelInterface()
     
+    let networkClerk = NetworkClerk()
+    
+    var subscription: AnyCancellable?
+    
     init() {
         weatherEntries = []
         loadWeatherEntries()
+        
+        subscription = modelInterface.modelNotifier().sink {
+            self.weatherEntries = []
+            self.loadWeatherEntries()
+        }
     }
     
     func refreshEntries() {
@@ -33,22 +43,6 @@ class WeatherVM : ObservableObject {
         
         loadWeatherEntries()
     }
-    
-    /*
-    func addCity() {
-        guard let serverResponse = fetchWeather(lat: lat, lon: lon) else {
-            return
-        }
-        
-        let newWeatherData = WeatherData(
-            serverResponse: serverResponse
-        )
-        
-        modelInterface.addEntry(entry: newWeatherData)
-        
-        loadWeatherEntries()
-    }
-     */
     
     func moveEntries(_ indices: IndexSet, to: Int) {
         modelInterface.moveEntries(fromOffsets: indices, toOffset: to)
@@ -79,14 +73,7 @@ class WeatherVM : ObservableObject {
         }
     }
     
-    private func fetchWeather(lat: Double, lon: Double) -> ServerResponse? {
-        let response = NetworkClerk().getWeatherJsonFor(
-            lat: String(lat),
-            lon: String(lon)
-        )
-        
-        print(response.0)
-        
-        return response.1
+    func fetchWeather(lat: Double, lon: Double) -> ServerResponse? {
+        networkClerk.fetchWeather(lat: lat, lon: lon)
     }
 }
