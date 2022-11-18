@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5709C13E290290430091B99D /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709C13D290290430091B99D /* WeatherAppApp.swift */; };
+		5709C13E290290430091B99D /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709C13D290290430091B99D /* WeatherApp.swift */; };
 		5709C140290290430091B99D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709C13F290290430091B99D /* ContentView.swift */; };
 		5709C142290290440091B99D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5709C141290290440091B99D /* Assets.xcassets */; };
 		5709C145290290440091B99D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5709C144290290440091B99D /* Preview Assets.xcassets */; };
@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		5709C13A290290430091B99D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5709C13D290290430091B99D /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
+		5709C13D290290430091B99D /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		5709C13F290290430091B99D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5709C141290290440091B99D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5709C144290290440091B99D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -67,16 +67,15 @@
 		5709C13C290290430091B99D /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				57610B5B2927BF03006E914F /* ViewModels */,
 				57987A46291E7E8F00FAE2AC /* CustomTypes */,
 				5709C1572902A8C40091B99D /* Utils */,
 				5709C1542902A4E40091B99D /* Views */,
-				5709C1532902A4880091B99D /* Model */,
-				5709C13D290290430091B99D /* WeatherAppApp.swift */,
-				5709C13F290290430091B99D /* ContentView.swift */,
-				5709C14D290290D30091B99D /* ViewModel.swift */,
+				5709C1532902A4880091B99D /* Models */,
+				5709C13D290290430091B99D /* WeatherApp.swift */,
+				5709C15A2902AB7D0091B99D /* Constants.swift */,
 				5709C141290290440091B99D /* Assets.xcassets */,
 				5709C143290290440091B99D /* Preview Content */,
-				5709C15A2902AB7D0091B99D /* Constants.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -89,19 +88,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		5709C1532902A4880091B99D /* Model */ = {
+		5709C1532902A4880091B99D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5709C14B290290BD0091B99D /* ModelInterface.swift */,
 				57CD15D62915157F00E0074F /* Database.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5709C1542902A4E40091B99D /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				5709C14F290294360091B99D /* WeatherEntry.swift */,
+				5709C13F290290430091B99D /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -110,8 +109,17 @@
 			isa = PBXGroup;
 			children = (
 				5709C1582902A8D50091B99D /* NetworkClerk.swift */,
+				5709C14B290290BD0091B99D /* ModelInterface.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		57610B5B2927BF03006E914F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5709C14D290290D30091B99D /* ViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		57987A46291E7E8F00FAE2AC /* CustomTypes */ = {
@@ -199,7 +207,7 @@
 				5709C1562902A50F0091B99D /* WeatherData.swift in Sources */,
 				5709C140290290430091B99D /* ContentView.swift in Sources */,
 				5709C14E290290D30091B99D /* ViewModel.swift in Sources */,
-				5709C13E290290430091B99D /* WeatherAppApp.swift in Sources */,
+				5709C13E290290430091B99D /* WeatherApp.swift in Sources */,
 				5709C150290294360091B99D /* WeatherEntry.swift in Sources */,
 				57CD15D72915157F00E0074F /* Database.swift in Sources */,
 				5709C15B2902AB7D0091B99D /* Constants.swift in Sources */,
