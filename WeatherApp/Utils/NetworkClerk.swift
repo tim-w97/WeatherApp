@@ -10,6 +10,8 @@ import Combine
 
 class NetworkClerk {
     
+    static let shared = NetworkClerk()
+    
     fileprivate var cancellables: [AnyCancellable?] = []
     
     let modelInterface = ModelInterface()
@@ -40,17 +42,17 @@ class NetworkClerk {
             .map { $0.data }
             .decode(type: ServerResponse.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
-            .sink(receiveCompletion: { status in
+            .sink(receiveCompletion: { completion in
                 // receiveCompletion closure wird nur einmal aufgerufen
                 // deswegen lieber hier aufräumen
                 
                 self.cancellables.removeAll(where: { storedCancellable in
                     storedCancellable == cancellable
                 })
-            }, receiveValue: { response in
+            }, receiveValue: { responseData in
                 // receiveValue closure wird evtl. mehrmals aufgerufen
                 
-                let updatedWeather = WeatherData(serverResponse: response)
+                let updatedWeather = WeatherData(responseData: responseData)
                 self.modelInterface.updateEntry(withId: forId, newEntry: updatedWeather)
             })
         

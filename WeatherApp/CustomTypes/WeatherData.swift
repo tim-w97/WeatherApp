@@ -16,14 +16,14 @@ struct WeatherData : Identifiable {
     let lat: Double
     let lon: Double
     
-    init(serverResponse: ServerResponse) {
+    init(responseData: ServerResponse) {
         id = UUID()
-        weatherId = serverResponse.id
-        city = serverResponse.name
-        temp = serverResponse.main.temp
+        weatherId = responseData.id
+        city = responseData.name
+        temp = responseData.main.temp
         
-        lat = serverResponse.coord.lat
-        lon = serverResponse.coord.lon
+        lat = responseData.coord.lat
+        lon = responseData.coord.lon
     }
     
     // For Preview

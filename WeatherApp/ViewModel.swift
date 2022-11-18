@@ -16,8 +16,6 @@ class WeatherVM : ObservableObject {
     
     var subscription: AnyCancellable?
     
-    let clerk = NetworkClerk()
-    
     init() {
         weatherEntries = []
         loadWeatherEntries()
@@ -64,6 +62,6 @@ class WeatherVM : ObservableObject {
     }
     
     func fetchWeather(forId: UUID, lat: Double, lon: Double) {
-        clerk.fetchWeather(forId: forId, lat: lat, lon: lon)
+        NetworkClerk.shared.fetchWeather(forId: forId, lat: lat, lon: lon)
     }
 }
