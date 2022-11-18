@@ -38,6 +38,8 @@ class NetworkClerk {
         var cancellable: AnyCancellable?
         
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            // RunLoop.main wird (genauso wie Benutzereingaben) dringlich behandelt
+            // Dringlichkeit von DispatchQueue.main kann vom BS bestimmt werden
             .receive(on: DispatchQueue.main)
             .map { $0.data }
             .decode(type: ServerResponse.self, decoder: JSONDecoder())
