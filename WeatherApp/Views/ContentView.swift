@@ -13,6 +13,11 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
+            if(vm.errorHasOccurred) {
+                Text("Es ist ein Fehler passiert. 😪\nBitte versuche es später nochmal.")
+                    .foregroundColor(.red)
+                    .padding()
+            }
             List {
                 ForEach(vm.weatherEntries) { entry in
                     WeatherEntry(data: entry)

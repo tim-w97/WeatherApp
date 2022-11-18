@@ -12,6 +12,8 @@ class WeatherVM : ObservableObject {
     @Published
     var weatherEntries: [WeatherData]
     
+    @Published var errorHasOccurred = false
+    
     let modelInterface = ModelInterface()
     
     var subscription: AnyCancellable?
@@ -20,13 +22,23 @@ class WeatherVM : ObservableObject {
         weatherEntries = []
         loadWeatherEntries()
         
-        subscription = modelInterface.modelNotifier().sink {
-            self.weatherEntries = []
-            self.loadWeatherEntries()
-        }
+        subscription = modelInterface.modelNotifier()
+            .sink{
+                self.weatherEntries = []
+                
+                if self.modelInterface.errorHasOccurred() {
+                    self.errorHasOccurred = true
+                    return
+                }
+                
+                self.loadWeatherEntries()
+            }
     }
     
     func refreshEntries() {
+        modelInterface.setErrorHasOccurred(to: false)
+        errorHasOccurred = false
+        
         for entry in weatherEntries {
             fetchWeather(forId: entry.id, lat: entry.lat, lon: entry.lon)
         }

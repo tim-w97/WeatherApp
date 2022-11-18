@@ -17,6 +17,16 @@ class ModelInterface {
         readyToUse()
     }
     
+    func errorHasOccurred() -> Bool {
+        return Database.sharedInstance.errorHasOccurred
+    }
+    
+    func setErrorHasOccurred(to: Bool) {
+        Database.sharedInstance.errorHasOccurred = to
+        
+        readyToUse()
+    }
+    
     func updateEntry(withId: UUID, newEntry: WeatherData) {
         guard let indexToUpdate = Database.sharedInstance.weatherEntries.firstIndex(where: { entry in
             entry.id == withId

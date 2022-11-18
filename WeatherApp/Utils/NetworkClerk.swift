@@ -47,6 +47,19 @@ class NetworkClerk {
             .sink(receiveCompletion: { completion in
                 // receiveCompletion closure wird nur einmal aufgerufen
                 // deswegen lieber hier aufräumen
+
+                switch completion {
+                case .finished:
+                    print("Finished fetching weather")
+                    break
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    
+                    self.modelInterface.setErrorHasOccurred(to: true)
+                    
+                    break
+                }
                 
                 self.cancellables.removeAll(where: { storedCancellable in
                     storedCancellable == cancellable

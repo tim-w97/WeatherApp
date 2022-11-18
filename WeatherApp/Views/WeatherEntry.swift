@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct WeatherEntry: View {
-    // TODO: create a dedicated struct for the view
-    
-    // TODO: Error String einbauen, vllt mit umgebendem Struct Container, testen: WLAN ausmachen
     let data : WeatherData
     
     var body: some View {
