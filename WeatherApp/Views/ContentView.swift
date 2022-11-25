@@ -2,37 +2,25 @@
 //  ContentView.swift
 //  WeatherApp
 //
-//  Created by Tim Wagner on 21.10.22.
+//  Created by Tim Wagner on 25.11.22.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject
-    var vm: WeatherVM
+    @ObservedObject var vm: WeatherVM
     
     var body: some View {
-        NavigationStack {
-            if(vm.errorHasOccurred) {
-                Text("Es ist ein Fehler passiert. 😪\nBitte versuche es später nochmal.")
-                    .foregroundColor(.red)
-                    .padding()
-            }
-            List {
-                ForEach(vm.weatherEntries) { entry in
-                    WeatherEntry(data: entry)
+        TabView {
+            CityList(vm: vm)
+                .tabItem {
+                    Label("Städte", systemImage: "location")
                 }
-                .onMove { indices, newIndex in
-                    vm.moveEntries(indices, to: newIndex)
+            
+            MapView(vm: vm)
+                .tabItem {
+                    Label("Karte", systemImage: "map")
                 }
-                .onDelete { indices in
-                    vm.removeEntries(indices: indices)
-                }
-            }
-            .navigationTitle("Deine Orte")
-            .refreshable {
-                vm.refreshEntries()
-            }
         }
     }
 }

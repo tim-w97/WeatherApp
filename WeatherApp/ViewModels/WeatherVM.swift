@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import MapKit
 
 class WeatherVM : ObservableObject {
     @Published
@@ -14,11 +15,17 @@ class WeatherVM : ObservableObject {
     
     @Published var errorHasOccurred = false
     
+    @Published var bottomSheetIsVisible = false
+    
+    @Published var mapLocation: CLLocationCoordinate2D
+    
     let modelInterface = ModelInterface()
     
     var subscription: AnyCancellable?
     
     init() {
+        mapLocation = CLLocationCoordinate2D()
+        
         weatherEntries = []
         loadWeatherEntries()
         
@@ -33,8 +40,19 @@ class WeatherVM : ObservableObject {
                 
                 self.loadWeatherEntries()
             }
+        
+        initMap()
     }
     
+    private func initMap() {
+        guard let firstWeatherEntry = weatherEntries.first else {
+            return
+        }
+        
+        mapLocation.latitude = firstWeatherEntry.lat
+        mapLocation.longitude = firstWeatherEntry.lon
+    }
+
     func refreshEntries() {
         modelInterface.setErrorHasOccurred(to: false)
         errorHasOccurred = false
