@@ -59,6 +59,8 @@ class NetworkClerk {
                     self.modelInterface.setErrorHasOccurred(to: true)
                     
                     break
+                    
+                    #error("wetter daten auf nil setzen und error string anzeigen, error string ist immer da")
                 }
                 
                 self.cancellables.removeAll(where: { storedCancellable in
