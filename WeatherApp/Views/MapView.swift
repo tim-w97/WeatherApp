@@ -49,9 +49,12 @@ struct MapView: View {
                     .foregroundColor(.red)
                     .shadow(radius: 100)
                     .onTapGesture {
-                        vm.bottomSheetIsVisible.toggle()
+                        vm.bottomSheetIsVisible = true
                     }.sheet(isPresented: $vm.bottomSheetIsVisible, content: {
-                        Text("Du hast die Stadt \(weatherData.city) angetippt.")
+                        CitySheet(
+                            visibleBinding: $vm.bottomSheetIsVisible,
+                            city: weatherData.city
+                        )
                     })
             }
         }

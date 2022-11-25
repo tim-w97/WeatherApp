@@ -22,6 +22,7 @@
 		57DA8D862930C78D00301364 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA8D852930C78D00301364 /* ContentView.swift */; };
 		57DA8D882930C80000301364 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA8D872930C80000301364 /* MapView.swift */; };
 		57DA8D8A2930CF8800301364 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA8D892930CF8800301364 /* City.swift */; };
+		57DA8D8C2930E11100301364 /* CitySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA8D8B2930E11100301364 /* CitySheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		57DA8D852930C78D00301364 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		57DA8D872930C80000301364 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		57DA8D892930CF8800301364 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		57DA8D8B2930E11100301364 /* CitySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				5709C13F290290430091B99D /* CityList.swift */,
 				57DA8D852930C78D00301364 /* ContentView.swift */,
 				57DA8D872930C80000301364 /* MapView.swift */,
+				57DA8D8B2930E11100301364 /* CitySheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				5709C14E290290D30091B99D /* WeatherVM.swift in Sources */,
 				5709C13E290290430091B99D /* WeatherApp.swift in Sources */,
 				5709C150290294360091B99D /* WeatherEntry.swift in Sources */,
+				57DA8D8C2930E11100301364 /* CitySheet.swift in Sources */,
 				57CD15D72915157F00E0074F /* Database.swift in Sources */,
 				57DA8D8A2930CF8800301364 /* City.swift in Sources */,
 				5709C15B2902AB7D0091B99D /* Constants.swift in Sources */,
