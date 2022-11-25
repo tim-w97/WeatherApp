@@ -38,19 +38,23 @@ struct MapView: View {
     }
     
     var body: some View {
-        Map(coordinateRegion: $region, annotationItems: dummyCities)
-        { city in
-            MapAnnotation(coordinate: city.location) {
-                Image(systemName: "pin.fill")
-                    .font(.largeTitle)
+        Map(coordinateRegion: $region, annotationItems: vm.weatherEntries)
+        { weatherData in
+            MapAnnotation(coordinate: CLLocationCoordinate2D(
+                latitude: weatherData.lat,
+                longitude: weatherData.lon
+            )) {
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 80))
                     .foregroundColor(.red)
+                    .shadow(radius: 100)
                     .onTapGesture {
                         vm.bottomSheetIsVisible.toggle()
-                    }
+                    }.sheet(isPresented: $vm.bottomSheetIsVisible, content: {
+                        Text("Du hast die Stadt \(weatherData.city) angetippt.")
+                    })
             }
-        }.sheet(isPresented: $vm.bottomSheetIsVisible, content: {
-            Text("Das ist die Stadt Jena")
-        })
+        }
     }
 }
 
